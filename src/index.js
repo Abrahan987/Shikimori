@@ -1,6 +1,6 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1'
-import './settings.js'
-import './plugins/_allfake.js'
+import './config/settings.js'
+import '../plugins/_allfake.js'
 import cfonts from 'cfonts'
 import { createRequire } from 'module'
 import { fileURLToPath, pathToFileURL } from 'url'
@@ -10,7 +10,7 @@ import fs, { readdirSync, statSync, unlinkSync, existsSync, mkdirSync, readFileS
 import yargs from 'yargs'
 import { spawn, execSync } from 'child_process'
 import lodash from 'lodash'
-import { shikimoriJadiBot } from './plugins/sockets-serbot.js'
+import { shikimoriJadiBot } from '../plugins/sockets-serbot.js'
 import chalk from 'chalk'
 import syntaxerror from 'syntax-error'
 import pino from 'pino'
@@ -205,10 +205,10 @@ await global.reloadHandler(true).catch(console.error)
 }}
 process.on('uncaughtException', console.error)
 let isInit = true
-let handler = await import('./handler.js')
+let handler = await import('./handlers/handler.js')
 global.reloadHandler = async function (restatConn) {
 try {
-const Handler = await import(`./handler.js?update=${Date.now()}`).catch(console.error)
+const Handler = await import(`./handlers/handler.js?update=${Date.now()}`).catch(console.error)
 if (Object.keys(Handler || {}).length) handler = Handler
 } catch (e) {
 console.error(e)
